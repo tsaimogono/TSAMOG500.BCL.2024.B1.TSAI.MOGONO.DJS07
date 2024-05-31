@@ -10,18 +10,22 @@ export default function Meme() {
     randomImage: "http://i.imgflip.com/1bij.jpg",
   });
 
- 
-function MemeFetcher() {
-  const [allMemes, setAllMemes] = useState([]);
-  const [isLoading, setIsLoading] = useState(false); // Track loading state
-  const [error, setError] = useState(null); // Store error messages
+  const [allMemes, setAllMemes] = React.useState([]);
 
-  
-  }const fetchMemes = async () => {
-    // ... (rest of the code)
-    const response = await fetch('https://your-custom-api.com/memes'); // Replace with your desired API endpoint
-    // ... (rest of the code)
-  };
+  React.useEffect(() => {
+    fetch("https://api.imgflip.com/get_memes")
+      .then((res) => res.json())
+      .then((data) => setAllMemes(data.data.memes));
+  }, []);
+
+  function getMemeImage() {
+    const randomNumber = Math.floor(Math.random() * allMemes.length);
+    const url = allMemes[randomNumber].url;
+    setMeme((prevMeme) => ({
+      ...prevMeme,
+      randomImage: url,
+    }));
+  }
 
   function handleChange(event) {
     const { name, value } = event.target;
