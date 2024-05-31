@@ -10,13 +10,11 @@ export default function Meme() {
     randomImage: "http://i.imgflip.com/1bij.jpg",
   });
 
-  const [allMemes, setAllMemes] = React.useState([]);
-
-  React.useEffect(() => {
-    fetch("https://api.imgflip.com/get_memes")
-      .then((res) => res.json())
-      .then((data) => setAllMemes(data.data.memes));
-  }, []);
+ 
+function MemeFetcher() {
+  const [allMemes, setAllMemes] = useState([]);
+  const [isLoading, setIsLoading] = useState(false); // Track loading state
+  const [error, setError] = useState(null); // Store error messages
 
   function getMemeImage() {
     const randomNumber = Math.floor(Math.random() * allMemes.length);
